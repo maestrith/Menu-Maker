@@ -1,6 +1,6 @@
 #SingleInstance,Force
 global Settings:=new XML("Settings"),MainWin:=new GUIKeep(1),MenuXML
-Main:={"&File":["&New","&Open","Ex&port","&Save","E&xit"],"A&bout":["Help","Online Manual"]},Order:=["&File","A&bout"],MenuXML:=new XML("Menu",Settings.Get("//Last/@file","Menus\Menu.XML"))
+Main:={"&File":["&New","&Open","Ex&port","Copy To &Clipboard","&Save","E&xit"],"A&bout":["Help","Online Manual"]},Order:=["&File","A&bout"],MenuXML:=new XML("Menu",Settings.Get("//Last/@file","Menus\Menu.XML"))
 for a,b in Order
 	for c,d in Main[b]
 		Menu,% RegExReplace(b,"\W"),Add,%d%,MenuHandler
@@ -257,6 +257,8 @@ MenuHandler(a,b,c){
 			return MenuXML:=xx,Populate()
 		}else if(Item="Export")
 			return Export()
+		else if(Item="Copy_To_Clipboard")
+			return Clipboard:=Export(1),m("Code Coppied to Clipboard")
 	}if(c="About"){
 		if(Item="Help")
 			return Help()
