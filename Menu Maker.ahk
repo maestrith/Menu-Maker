@@ -25,7 +25,7 @@ MainWin.Add("TreeView,w350 h300 vTV gUpdateColor AltSubmit,,wh"
 		 ,"StatusBar")
 MainWin.SetText("Confirm",Settings.Get("//Confirm",1))
 MainWin.Show("Menu Maker")
-Hotkey,IfWinExist,% MainWin.ID
+Hotkey,IfWinActive,% MainWin.ID
 for a,b in {Delete:"Delete",Up:"Arrows",Down:"Arrows",Left:"Arrows",Right:"Arrows","!Up":"Move","!Down":"Move","!Left":"Move","!Right":"Move"}
 	Hotkey,%a%,%b%,On
 Populate(),MainWin.Focus("Item")
