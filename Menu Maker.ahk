@@ -1,6 +1,15 @@
 #SingleInstance,Force
 global Settings:=new XML("Settings"),MainWin:=new GUIKeep(1),MenuXML
-Main:={"&File":["&New","&Open","Ex&port","Copy To &Clipboard","&Save","E&xit"],"A&bout":["Help","Online Manual"]},Order:=["&File","A&bout"],MenuXML:=new XML("Menu",Settings.Get("//Last/@file","Menus\Menu.XML"))
+if((A_PtrSize=8&&A_IsCompiled="")||!A_IsUnicode){
+	SplitPath,A_AhkPath,,dir
+	if(!FileExist(correct:=dir "\AutoHotkeyU32.exe")){
+		m("Requires AutoHotkey 1.1 to run")
+		ExitApp
+	}
+	Run,"%correct%" "%A_ScriptName%" "%file%",%A_ScriptDir%
+	ExitApp
+	return
+}Main:={"&File":["&New","&Open","Ex&port","Copy To &Clipboard","&Save","E&xit"],"A&bout":["Help","Online Manual"]},Order:=["&File","A&bout"],MenuXML:=new XML("Menu",Settings.Get("//Last/@file","Menus\Menu.XML"))
 for a,b in Order
 	for c,d in Main[b]
 		Menu,% RegExReplace(b,"\W"),Add,%d%,MenuHandler
